@@ -8,11 +8,21 @@ import (
 
 	"github.com/jkomyno/palitrux/config"
 	"github.com/jkomyno/palitrux/router"
+	"github.com/rs/cors"
 )
 
 // Server launches the microservice with the proper configuration
 func Server(c *config.Config) error {
 	handler := router.NewServerMux(c)
+
+	if c.CorsEnabled {
+		corsHandler := cors.New(cors.Options{
+			AllowedOrigins: c.CorsAllowedOrigins,
+		})
+
+		handler = corsHandler.Handler(handler)
+	}
+
 	addr := ":" + strconv.Itoa(c.ServerPort)
 
 	server := &http.Server{

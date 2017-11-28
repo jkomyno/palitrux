@@ -20,6 +20,10 @@ type Config struct {
 	HTTPRateLimit int `mapstructure:"http_rate_limit"`
 	// Maximum HTTP burst. Defaults to 30
 	HTTPBurst int `mapstructure:"http_burst"`
+	// If CorsEnabled is true, CORS becomes active
+	CorsEnabled bool `mapstructure:"cors_enabled"`
+	// If CorsEnabled is true, CorsAllowedOrigins become whitelisted
+	CorsAllowedOrigins []string `mapstructure:"cors_allowed_origins"`
 }
 
 func (config Config) validate() error {
@@ -46,7 +50,9 @@ func LoadConfig() (*Config, error) {
 	v.SetDefault("http_write_timeout", 60)
 	v.SetDefault("http_rate_limit", 60)
 	v.SetDefault("http_burst", 30)
-	v.AddConfigPath(".")
+	v.SetDefault("cors_enabled", true)
+	v.SetDefault("cors_allowed_origins", []string{"*"})
+	v.AddConfigPath("./config")
 
 	if err := v.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("Failed to read the configuration file: %s", err)

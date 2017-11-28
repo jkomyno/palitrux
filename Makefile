@@ -7,7 +7,7 @@ install:
 	dep ensure
 
 clean:
-	rm -rf bin/palitrux
+	rm -rf palitrux palitrux.exe
 
 test:
 	go test $$(go list ./... | grep -v /vendor/)
