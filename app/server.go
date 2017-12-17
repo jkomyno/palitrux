@@ -12,7 +12,7 @@ import (
 )
 
 // Server launches the microservice with the proper configuration
-func Server(c *config.Config) error {
+func Server(c *config.Config) (*http.Server, error) {
 	handler := router.NewServerMux(c)
 
 	if c.CorsEnabled {
@@ -34,7 +34,7 @@ func Server(c *config.Config) error {
 	}
 
 	fmt.Printf("Listening on *%s\n", addr)
-	return listenAndServe(server, c)
+	return server, listenAndServe(server, c)
 }
 
 func listenAndServe(s *http.Server, c *config.Config) error {

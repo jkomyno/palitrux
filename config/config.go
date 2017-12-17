@@ -52,7 +52,7 @@ func LoadConfig() (*Config, error) {
 	v.SetDefault("http_burst", 30)
 	v.SetDefault("cors_enabled", true)
 	v.SetDefault("cors_allowed_origins", []string{"*"})
-	v.AddConfigPath("./config")
+	v.AddConfigPath(".")
 
 	if err := v.ReadInConfig(); err != nil {
 		return nil, fmt.Errorf("Failed to read the configuration file: %s", err)

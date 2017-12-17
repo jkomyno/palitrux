@@ -21,6 +21,7 @@ type RuntimeStats struct {
 	Goroutines           int     `json:"goroutines"`           // Number of goroutines dispatched
 	CPUs                 int     `json:"cpus"`                 // Number of CPUs in use
 	Version              string  `json:"version"`              // Current version of the app
+	BuildDate            string  `json:"buildDate"`            // Date in which the current version of the app was built
 }
 
 // GetUptime returns the uptime expressed in UNIX format
@@ -40,6 +41,7 @@ func GetRuntimeStats() *RuntimeStats {
 		Goroutines:           runtime.NumGoroutine(),
 		CPUs:                 runtime.NumCPU(),
 		Version:              config.Version,
+		BuildDate:            config.BuildDate,
 	}
 }
 

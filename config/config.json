@@ -1,5 +1,0 @@
-{
-  "cors_allowed_origins": [
-    "http://localhost:*"
-  ]
-}
